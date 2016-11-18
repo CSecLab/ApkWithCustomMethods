@@ -30,6 +30,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.CellLocation;
 import android.telephony.PhoneStateListener;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
 
@@ -275,21 +277,12 @@ public class CustomMethods {
         return new ArrayList();
     }
 
-
     @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.location.LocationManager")
     public static void requestSingleUpdate(LocationManager lm, Criteria c, PendingIntent pi) { }
 
     @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.location.LocationManager")
     public static boolean isProviderEnabled(LocationManager lm, String s) {
         return false;
-    }
-
-    @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.telephony.TelephonyManager")
-    public static void listen(TelephonyManager tm, PhoneStateListener psl, int x) {}
-
-    @MethodPermission(permission = "android.permission.READ_PHONE_STATE", defClass ="android.telephony.TelephonyManager")
-    public static String getGroupIdLevel1(TelephonyManager tm) {
-        return "";
     }
 
     @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.location.LocationManager")
@@ -300,6 +293,19 @@ public class CustomMethods {
     @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.location.LocationManager")
     public static boolean addGpsStatusListener(LocationManager lm, GpsStatus.Listener listener) {
         return false;
+    }
+
+    @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.location.LocationManager")
+    public static boolean addNmeaListener(LocationManager lm, GpsStatus.NmeaListener listener) {
+        return false;
+    }
+
+    @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.telephony.TelephonyManager")
+    public static void listen(TelephonyManager tm, PhoneStateListener psl, int x) {}
+
+    @MethodPermission(permission = "android.permission.READ_PHONE_STATE", defClass ="android.telephony.TelephonyManager")
+    public static String getGroupIdLevel1(TelephonyManager tm) {
+        return "";
     }
 
     @AuxiliaryClass
@@ -379,6 +385,16 @@ public class CustomMethods {
 
     @MethodPermission(permission = "android.permission.READ_PHONE_STATE", defClass ="android.telephony.TelephonyManager")
     public static String getSubscriberId(TelephonyManager tm) { return ""; }
+
+    @MethodPermission(permission = "android.permission.READ_PHONE_STATE", defClass ="android.telephony.SubscriptionManager")
+    public static SubscriptionInfo getActiveSubscriptionInfoForSimSlotIndex(SubscriptionManager sm, int slotIdx) {
+        return null;
+    }
+
+    @MethodPermission(permission = "android.permission.READ_PHONE_STATE", defClass ="android.telephony.SubscriptionManager")
+    public static List<SubscriptionInfo> getActiveSubscriptionInfoList(SubscriptionManager sm) {
+        return new ArrayList<SubscriptionInfo>();
+    }
 
     @MethodPermission(permission = "android.permission.READ_PHONE_STATE", defClass ="android.telephony.TelephonyManager")
     public static String getDeviceSoftwareVersion(TelephonyManager tm) { return ""; }
@@ -487,5 +503,66 @@ public class CustomMethods {
         return new Account[0];
     }
 
+    @MethodPermission(permission = "android.permission.GET_ACCOUNTS", defClass = "android.accounts.AccountManager")
+    public static AccountManagerFuture<Boolean> hasFeatures(AccountManager am, Account account, String[] features, AccountManagerCallback<Boolean> callback, Handler handler) {
+        return new AccountManagerFuture<Boolean>() {
+
+            @Override
+            public boolean cancel(boolean b) {
+                return false;
+            }
+
+            @Override
+            public boolean isCancelled() {
+                return false;
+            }
+
+            @Override
+            public boolean isDone() {
+                return false;
+            }
+
+            @Override
+            public Boolean getResult() throws OperationCanceledException, IOException, AuthenticatorException {
+                return false;
+            }
+
+            @Override
+            public Boolean getResult(long l, TimeUnit timeUnit) throws OperationCanceledException, IOException, AuthenticatorException {
+                return false;
+            }
+        };
+    }
+
+    @MethodPermission(permission = "android.permission.GET_ACCOUNTS", defClass = "android.accounts.AccountManager")
+    public static AccountManagerFuture<Account[]> getAccountsByTypeAndFeatures(
+            AccountManager am, String type, String[] features, AccountManagerCallback<Account[]> amc, Handler h) {
+        return new AccountManagerFuture<Account[]>() {
+            @Override
+            public boolean cancel(boolean b) {
+                return false;
+            }
+
+            @Override
+            public boolean isCancelled() {
+                return false;
+            }
+
+            @Override
+            public boolean isDone() {
+                return false;
+            }
+
+            @Override
+            public Account[] getResult() throws OperationCanceledException, IOException, AuthenticatorException {
+                return new Account[0];
+            }
+
+            @Override
+            public Account[] getResult(long l, TimeUnit timeUnit) throws OperationCanceledException, IOException, AuthenticatorException {
+                return new Account[0];
+            }
+        };
+    }
 
 }
