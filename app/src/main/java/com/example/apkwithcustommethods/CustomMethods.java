@@ -16,6 +16,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
 import android.hardware.Camera;
 import android.location.Criteria;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationProvider;
@@ -286,9 +287,19 @@ public class CustomMethods {
     @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.telephony.TelephonyManager")
     public static void listen(TelephonyManager tm, PhoneStateListener psl, int x) {}
 
+    @MethodPermission(permission = "android.permission.READ_PHONE_STATE", defClass ="android.telephony.TelephonyManager")
+    public static String getGroupIdLevel1(TelephonyManager tm) {
+        return "";
+    }
+
     @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.location.LocationManager")
     public static Location getLastKnownLocation(LocationManager lm, String s) {
         return new FakeLocation(s);
+    }
+
+    @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.location.LocationManager")
+    public static boolean addGpsStatusListener(LocationManager lm, GpsStatus.Listener listener) {
+        return false;
     }
 
     @AuxiliaryClass
@@ -465,4 +476,16 @@ public class CustomMethods {
     public static boolean isBluetoothA2dpOn(AudioManager am) {
         return false;
     }
+
+    @MethodPermission(permission = "android.permission.GET_ACCOUNTS", defClass = "android.accounts.AccountManager")
+    public static Account[] getAccountsByType(AccountManager am, String type) {
+        return new Account[0];
+    }
+
+    @MethodPermission(permission = "android.permission.GET_ACCOUNTS", defClass = "android.accounts.AccountManager")
+    public static Account[] getAccounts(AccountManager am) {
+        return new Account[0];
+    }
+
+
 }
