@@ -300,6 +300,11 @@ public class CustomMethods {
         return false;
     }
 
+    @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.location.LocationManager")
+    public static boolean sendExtraCommand(LocationManager lm, String provider, String command, Bundle extras) {
+        return false;
+    }
+
     @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.telephony.TelephonyManager")
     public static void listen(TelephonyManager tm, PhoneStateListener psl, int x) {}
 
