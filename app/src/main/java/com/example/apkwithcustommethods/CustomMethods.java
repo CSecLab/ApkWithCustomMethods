@@ -34,7 +34,6 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
-
 import org.apache.http.Header;
 import org.apache.http.HeaderIterator;
 import org.apache.http.HttpEntity;
@@ -49,7 +48,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
@@ -125,13 +123,6 @@ public class CustomMethods {
         return new FakeURLConnection(url);
     }
 
-    @AuxiliaryClass
-    public static class FakeURLConnection extends URLConnection {
-        protected FakeURLConnection(URL url) { super(url); }
-
-        @Override
-        public void connect() throws IOException {}
-    }
     @MethodPermission(permission = "android.permission.INTERNET", defClass ="java.net.InetAddress")
     public static InetAddress getByName(InetAddress ia, String s) throws UnknownHostException {
         byte[] ipAddr = new byte[]{127, 0, 0, 1};
@@ -151,120 +142,9 @@ public class CustomMethods {
         return new FakeHttpResponse();
     }
 
-    @AuxiliaryClass
-    public static class FakeHttpResponse implements HttpResponse {
-        @Override
-        public StatusLine getStatusLine() { return null; }
-
-        @Override
-        public void setStatusLine(StatusLine statusLine) {}
-
-        @Override
-        public void setStatusLine(ProtocolVersion protocolVersion, int i) {}
-
-        @Override
-        public void setStatusLine(ProtocolVersion protocolVersion, int i, String s) {}
-
-        @Override
-        public void setStatusCode(int i) throws IllegalStateException {}
-
-        @Override
-        public void setReasonPhrase(String s) throws IllegalStateException {}
-
-        @Override
-        public HttpEntity getEntity() {
-            return null;
-        }
-
-        @Override
-        public void setEntity(HttpEntity httpEntity) {}
-
-        @Override
-        public Locale getLocale() {
-            return null;
-        }
-
-        @Override
-        public void setLocale(Locale locale) {}
-
-        @Override
-        public ProtocolVersion getProtocolVersion() {
-            return null;
-        }
-
-        @Override
-        public boolean containsHeader(String s) {
-            return false;
-        }
-
-        @Override
-        public Header[] getHeaders(String s) {
-            return new Header[0];
-        }
-
-        @Override
-        public Header getFirstHeader(String s) {
-            return null;
-        }
-
-        @Override
-        public Header getLastHeader(String s) {
-            return null;
-        }
-
-        @Override
-        public Header[] getAllHeaders() {
-            return new Header[0];
-        }
-        @Override
-        public void addHeader(Header header) {}
-
-        @Override
-        public void addHeader(String s, String s1) {}
-
-        @Override
-        public void setHeader(Header header) {}
-
-        @Override
-        public void setHeader(String s, String s1) {}
-
-        @Override
-        public void setHeaders(Header[] headers) {}
-
-        @Override
-        public void removeHeader(Header header) {}
-
-        @Override
-        public void removeHeaders(String s) {}
-
-        @Override
-        public HeaderIterator headerIterator() {
-            return null;
-        }
-
-        @Override
-        public HeaderIterator headerIterator(String s) {
-            return null;
-        }
-
-        @Override
-        public HttpParams getParams() {
-            return null;
-        }
-
-        @Override
-        public void setParams(HttpParams httpParams) {}
-    }
-
     @MethodPermission(permission = "android.permission.INTERNET", defClass ="java.net.URL")
     public static InputStream openStream(java.net.URL u) {
         return new FakeInputStream();
-    }
-
-    @AuxiliaryClass
-    public static class FakeInputStream extends InputStream {
-        @Override
-        public int read() throws IOException { return 0; }
     }
 
     @MethodPermission(permission = "android.permission.GET_TASKS", defClass ="android.app.ActivityManager")
@@ -313,54 +193,6 @@ public class CustomMethods {
         return "";
     }
 
-    @AuxiliaryClass
-    public static class FakeLocation extends Location {
-        public String CREATOR;
-        public FakeLocation(String provider) {
-            super(provider);
-        }
-
-        @Override
-        public void setLatitude(double latitude) {
-            super.setLatitude(0x0);
-        }
-
-        @Override
-        public double getLatitude() {
-            return 0x0;
-        }
-
-        @Override
-        public double getLongitude() {
-            return 0x0;
-        }
-
-        @Override
-        public void setLongitude(double longitude) {
-            super.setLongitude(0x0);
-        }
-
-        @Override
-        public boolean hasSpeed() {
-            return false;
-        }
-
-        @Override
-        public boolean hasAltitude() {
-            return false;
-        }
-
-        @Override
-        public boolean hasBearing() {
-            return false;
-        }
-
-        @Override
-        public boolean hasAccuracy() {
-            return false;
-        }
-    }
-
     @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.location.LocationManager")
     public static String getBestProvider(LocationManager lm, Criteria c, boolean b) {
         return "";
@@ -378,9 +210,6 @@ public class CustomMethods {
     public static CellLocation getCellLocation(TelephonyManager tm) {
         return new FakeCellLocation();
     }
-
-    @AuxiliaryClass
-    public static class FakeCellLocation extends CellLocation { }
 
     @MethodPermission(permission = "android.permission.ACCESS_COARSE_LOCATION", defClass ="android.location.LocationManager")
     public static LocationProvider getProvider(LocationManager lm, String s) { return null; }
@@ -422,34 +251,6 @@ public class CustomMethods {
     @MethodPermission(permission = "android.permission.GET_ACCOUNTS", defClass ="android.accounts.AccountManager")
     public static AccountManagerFuture removeAccount(AccountManager am, Account a, AccountManagerCallback amc, Handler h) {
         return new FakeAccountManagerFuture();
-    }
-
-    @AuxiliaryClass
-    public static class FakeAccountManagerFuture implements AccountManagerFuture {
-        @Override
-        public boolean cancel(boolean mayInterruptIfRunning) {
-            return false;
-        }
-
-        @Override
-        public boolean isCancelled() {
-            return false;
-        }
-
-        @Override
-        public boolean isDone() {
-            return false;
-        }
-
-        @Override
-        public Object getResult() throws OperationCanceledException, IOException, AuthenticatorException {
-            return null;
-        }
-
-        @Override
-        public Object getResult(long timeout, TimeUnit unit) throws OperationCanceledException, IOException, AuthenticatorException {
-            return null;
-        }
     }
 
     @MethodPermission(permission = "android.permission.GET_ACCOUNTS", defClass ="android.accounts.AccountManager")
@@ -568,6 +369,239 @@ public class CustomMethods {
                 return new Account[0];
             }
         };
+    }
+
+    @MethodPermission(permission = "com.android.voicemail.permission.ADD_VOICEMAIL", defClass = "android.provider.VoicemailContract.Status")
+    public static Uri buildSourceUri(android.provider.VoicemailContract.Status vcs, String s) {
+        return Uri.parse("https://www.example.com/");
+    }
+
+    @MethodPermission(permission = "com.android.voicemail.permission.ADD_VOICEMAIL", defClass = "android.provider.VoicemailContract.Voicemails")
+    public static Uri buildSourceUri(android.provider.VoicemailContract.Voicemails vcv, String s) {
+        return Uri.parse("https://www.example.com/");
+    }
+
+    @AuxiliaryClass
+    public static class FakeURLConnection extends URLConnection {
+        protected FakeURLConnection(URL url) {
+            super(url);
+        }
+
+        @Override
+        public void connect() throws IOException {
+        }
+    }
+
+    @AuxiliaryClass
+    public static class FakeHttpResponse implements HttpResponse {
+        @Override
+        public StatusLine getStatusLine() {
+            return null;
+        }
+
+        @Override
+        public void setStatusLine(StatusLine statusLine) {
+        }
+
+        @Override
+        public void setStatusLine(ProtocolVersion protocolVersion, int i) {
+        }
+
+        @Override
+        public void setStatusLine(ProtocolVersion protocolVersion, int i, String s) {
+        }
+
+        @Override
+        public void setStatusCode(int i) throws IllegalStateException {
+        }
+
+        @Override
+        public void setReasonPhrase(String s) throws IllegalStateException {
+        }
+
+        @Override
+        public HttpEntity getEntity() {
+            return null;
+        }
+
+        @Override
+        public void setEntity(HttpEntity httpEntity) {
+        }
+
+        @Override
+        public Locale getLocale() {
+            return null;
+        }
+
+        @Override
+        public void setLocale(Locale locale) {
+        }
+
+        @Override
+        public ProtocolVersion getProtocolVersion() {
+            return null;
+        }
+
+        @Override
+        public boolean containsHeader(String s) {
+            return false;
+        }
+
+        @Override
+        public Header[] getHeaders(String s) {
+            return new Header[0];
+        }
+
+        @Override
+        public Header getFirstHeader(String s) {
+            return null;
+        }
+
+        @Override
+        public Header getLastHeader(String s) {
+            return null;
+        }
+
+        @Override
+        public Header[] getAllHeaders() {
+            return new Header[0];
+        }
+
+        @Override
+        public void addHeader(Header header) {
+        }
+
+        @Override
+        public void addHeader(String s, String s1) {
+        }
+
+        @Override
+        public void setHeader(Header header) {
+        }
+
+        @Override
+        public void setHeader(String s, String s1) {
+        }
+
+        @Override
+        public void setHeaders(Header[] headers) {
+        }
+
+        @Override
+        public void removeHeader(Header header) {
+        }
+
+        @Override
+        public void removeHeaders(String s) {
+        }
+
+        @Override
+        public HeaderIterator headerIterator() {
+            return null;
+        }
+
+        @Override
+        public HeaderIterator headerIterator(String s) {
+            return null;
+        }
+
+        @Override
+        public HttpParams getParams() {
+            return null;
+        }
+
+        @Override
+        public void setParams(HttpParams httpParams) {
+        }
+    }
+
+    @AuxiliaryClass
+    public static class FakeInputStream extends InputStream {
+        @Override
+        public int read() throws IOException {
+            return 0;
+        }
+    }
+
+    @AuxiliaryClass
+    public static class FakeLocation extends Location {
+        public String CREATOR;
+
+        public FakeLocation(String provider) {
+            super(provider);
+        }
+
+        @Override
+        public double getLatitude() {
+            return 0x0;
+        }
+
+        @Override
+        public void setLatitude(double latitude) {
+            super.setLatitude(0x0);
+        }
+
+        @Override
+        public double getLongitude() {
+            return 0x0;
+        }
+
+        @Override
+        public void setLongitude(double longitude) {
+            super.setLongitude(0x0);
+        }
+
+        @Override
+        public boolean hasSpeed() {
+            return false;
+        }
+
+        @Override
+        public boolean hasAltitude() {
+            return false;
+        }
+
+        @Override
+        public boolean hasBearing() {
+            return false;
+        }
+
+        @Override
+        public boolean hasAccuracy() {
+            return false;
+        }
+    }
+
+    @AuxiliaryClass
+    public static class FakeCellLocation extends CellLocation {
+    }
+
+    @AuxiliaryClass
+    public static class FakeAccountManagerFuture implements AccountManagerFuture {
+        @Override
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            return false;
+        }
+
+        @Override
+        public boolean isCancelled() {
+            return false;
+        }
+
+        @Override
+        public boolean isDone() {
+            return false;
+        }
+
+        @Override
+        public Object getResult() throws OperationCanceledException, IOException, AuthenticatorException {
+            return null;
+        }
+
+        @Override
+        public Object getResult(long timeout, TimeUnit unit) throws OperationCanceledException, IOException, AuthenticatorException {
+            return null;
+        }
     }
 
 }
