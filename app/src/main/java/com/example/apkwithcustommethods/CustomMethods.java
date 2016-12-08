@@ -371,12 +371,12 @@ public class CustomMethods {
         };
     }
 
-    @MethodPermission(permission = "com.android.voicemail.permission.ADD_VOICEMAIL", defClass = "android.provider.VoicemailContract.Status")
+    @MethodPermission(permission = "com.android.voicemail.permission.ADD_VOICEMAIL", defClass = "android.provider.VoicemailContract$Status")
     public static Uri buildSourceUri(android.provider.VoicemailContract.Status vcs, String s) {
         return Uri.parse("https://www.example.com/");
     }
 
-    @MethodPermission(permission = "com.android.voicemail.permission.ADD_VOICEMAIL", defClass = "android.provider.VoicemailContract.Voicemails")
+    @MethodPermission(permission = "com.android.voicemail.permission.ADD_VOICEMAIL", defClass = "android.provider.VoicemailContract$Voicemails")
     public static Uri buildSourceUri(android.provider.VoicemailContract.Voicemails vcv, String s) {
         return Uri.parse("https://www.example.com/");
     }
